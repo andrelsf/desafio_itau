@@ -1,0 +1,34 @@
+@startuml Sequence Diagram - GET Balance
+!pragma teoz true
+
+participant client as "App [Mobile, Web]" #Orange
+box "AWS Account" #WhiteSmoke
+participant api_gw as "API Gateway" #Orange
+participant api_accounts as "API Accounts" #Orange
+database db_accounts as "Database Accounts" #LightBlue
+participant api_customers_mock as "API Customers Mock" #Orange
+
+client -> api_gw: GET: /api/v1/accounts/{customerId}/balance
+api_gw -> api_accounts
+
+activate api_accounts #Orange
+api_accounts -> db_accounts: findBy CustomerId on Account Database
+api_accounts <- db_accounts: return entity
+api_accounts -> api_customers_mock: GET: /customers/{customerId}
+api_accounts <- api_customers_mock: return data
+api_accounts -> api_accounts: Mount Response data
+api_accounts -> api_gw: 200: response
+deactivate api_accounts
+note left of api_accounts
+{
+  "fullName": "Bob"
+  "accountNumber": 1230019,
+  "agency": 1234,
+  "balance": 1000.0,
+  "dailyTransferLimit": 1000.0
+}
+end note
+
+client <- api_gw
+
+@enduml

@@ -1,0 +1,63 @@
+@startuml Sequence Diagram - POST Transfer
+!pragma teoz true
+
+participant client as "App [Mobile, Web]" #Orange
+box "AWS Account" #WhiteSmoke
+participant api_gw as "API Gateway" #Orange
+participant api_accounts as "API Accounts" #Orange
+database db_accounts as "Database Accounts" #LightBlue
+end box
+participant api_bacen_mock as "API Customers Mock" #Orange
+
+client -> api_gw: POST: /api/v1/accounts/{customerId}/transfers
+note right of client
+{
+  "toAccount": {
+    "fullName": "Alice",
+    "agency": 4321,
+    "accountNumber": 856087
+  },
+  "amount": 100.00
+}
+end note
+api_gw -> api_accounts
+
+activate api_accounts #Orange
+api_accounts -> db_accounts: findBy:\n1.CustomerId\n2.Balance Greater Than Equal amount to transfer\n3.Daily Transfer Limit Greater Than Equal amount to transfer
+api_accounts <- db_accounts: return fromAccount
+
+alt #LightGreen fromAccount isPresent
+  api_accounts -> db_accounts: findBy: Agency and Account Number for toAccount
+  api_accounts <- db_accounts: return toAccount
+  alt #LightGreen toAccount isPresent
+    api_accounts -> api_accounts: Debit fromAccount amount from request\nDecrease Daily Transfer Limit amount
+    api_accounts -> api_accounts: Credit toAccount amount from request
+    api_accounts -> db_accounts: SaveAll
+    api_accounts -> api_bacen_mock: POST: /bacen/notifications
+    note right of api_accounts
+      {
+        "fromAccount": {...},
+        "toAccount": {...},
+        "amount": 100.00
+      }
+    end note
+    api_accounts <- api_bacen_mock: 201: Response statusCode
+    api_accounts -> api_gw: 200: Transfer Response
+    note left of api_accounts
+      {
+        "fromAccount": {...},
+        "toAccount": {...},
+        "amount": 100.00
+      }
+    end note
+    
+  else #IndianRed
+    api_accounts -> api_gw: 422: Unprocessable Entity\nToAccount not found
+  end
+else #IndianRed
+  api_gw <- api_accounts: 422: Unprocessable Entity\nCheck account balance and daily transfer limit.
+  deactivate api_accounts
+end
+api_gw -> client
+
+@enduml

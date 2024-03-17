@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  postgres-service:
+    container_name: postgres-accounts
+    image: postgres:15
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: accounts
+      POSTGRES_USER: accounts-user
+      POSTGRES_PASSWORD: 4cc0unt5P4ssw0rd!123
+
+  mountebank:
+    image: bbyars/mountebank:2.8.2
+    ports:
+      - 2525:2525
+      - 4545:4545
+      - 5555:5555
+      - 8091:8091

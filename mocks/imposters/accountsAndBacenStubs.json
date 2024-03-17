@@ -1,0 +1,192 @@
+{
+  "port": 8091,
+  "protocol": "http",
+  "stubs": [
+    {
+      "predicates": [
+        {
+          "and": [
+            {
+              "equals": {
+                "path": "/customers",
+                "method": "GET",
+                "headers": {
+                  "Content-Type": "application/json"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "responses": [
+        {
+          "is": {
+            "statusCode": 200,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": [
+              {
+                "customerId": "0ab4165471c445918697d3d620b0db2b",
+                "fullName": "Bob",
+                "cpf": "11122233344",
+                "address": "Rua bar 123 Seila Foobar-FB",
+                "registered_at": "2020-03-01T10:52:52.650555",
+                "updated_at": "2020-03-01T10:52:52.650555"
+              },
+              {
+                "customerId": "0ab4165471c445918697d3d620b0db2a",
+                "fullName": "Alice",
+                "cpf": "22233344455",
+                "address": "Rua foo 123 Seila Barfoo-BF",
+                "registered_at": "2020-03-01T10:52:52.650555",
+                "updated_at": "2020-03-01T10:52:52.650555"
+              },
+              {
+                "customerId": "0ab4165471c445918697d3d620b0db2c",
+                "fullName": "Jose Nome Facil",
+                "cpf": "22233344455",
+                "address": "Rua do Brasil 123 Foobar Barfoo-BF",
+                "registered_at": "2020-03-01T10:52:52.650555",
+                "updated_at": "2020-03-01T10:52:52.650555"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "predicates": [
+        {
+          "and": [
+            {
+              "equals": {
+                "path": "/customers/0ab4165471c445918697d3d620b0db2c",
+                "method": "GET",
+                "headers": {
+                  "Content-Type": "application/json"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "responses": [
+        {
+          "is": {
+            "statusCode": 200,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": {
+              "customerId": "0ab4165471c445918697d3d620b0db2c",
+              "fullName": "Jose Nome Facil",
+              "cpf": "22233344455",
+              "address": "Rua do Brasil 123 Foobar Barfoo-BF",
+              "registered_at": "2020-03-01T10:52:52.650555",
+              "updated_at": "2020-03-01T10:52:52.650555"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "predicates": [
+        {
+          "and": [
+            {
+              "equals": {
+                "path": "/customers/0ab4165471c445918697d3d620b0db2b",
+                "method": "GET",
+                "headers": {
+                  "Content-Type": "application/json"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "responses": [
+        {
+          "is": {
+            "statusCode": 200,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": {
+              "customerId": "0ab4165471c445918697d3d620b0db2b",
+              "fullName": "Bob",
+              "cpf": "11122233344",
+              "address": "Rua bar 123 Seila Foobar-FB",
+              "registered_at": "2020-03-01T10:52:52.650555",
+              "updated_at": "2020-03-01T10:52:52.650555"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "predicates": [
+        {
+          "and": [
+            {
+              "equals": {
+                "path": "/customers/0ab4165471c445918697d3d620b0db2a",
+                "method": "GET",
+                "headers": {
+                  "Content-Type": "application/json"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "responses": [
+        {
+          "is": {
+            "statusCode": 200,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": {
+              "customerId": "0ab4165471c445918697d3d620b0db2a",
+              "fullName": "Alice",
+              "cpf": "22233344455",
+              "address": "Rua foo 123 Seila Barfoo-BF",
+              "registered_at": "2020-03-01T10:52:52.650555",
+              "updated_at": "2020-03-01T10:52:52.650555"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "predicates": [
+        {
+          "and": [
+            {
+              "equals": {
+                "path": "/api/v1/bacen/notifications",
+                "method": "POST",
+                "headers": {
+                  "Content-Type": "application/json"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "responses": [
+        {
+          "is": {
+            "statusCode": 201,
+            "headers": {
+              "Content-Type": "application/json"
+            },
+            "body": {}
+          }
+        }
+      ]
+    }
+  ]
+}

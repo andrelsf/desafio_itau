@@ -1,0 +1,8 @@
+{
+  "name": "mauntebank",
+  "version": "1.0.0",
+  "description": "Mountebank tests",
+  "dependencies": {
+    "mountebank": "2.8.2"
+  }
+}
