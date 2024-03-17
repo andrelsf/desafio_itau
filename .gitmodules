@@ -1,0 +1,3 @@
+[submodule "automated-tests-rest-assured"]
+	path = automated-tests-rest-assured
+	url = https://github.com/andrelsf/automated-tests-rest-assured
