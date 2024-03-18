@@ -8,7 +8,10 @@ Customers: (Cadastro Mock)
 Bacen:
 - Notifica sobre as transacoes realizadas
 
-| Method  | Path | Description |
+---
+Recursos da API
+
+| Method  | Path  | Description  |
 | :-----: | :---- | :----------- |
 | GET     | /api/v1/accounts/{customerId}/balance         | Consulta saldo atual em conta do cliente            |
 | POST    | /api/v1/accounts/{customerId}/transfers       | Realiza transferencia entre contas                  |
@@ -47,12 +50,27 @@ curl -i -X POST -H 'Content-Type: application/json' http://localhost:2525/impost
 
 ### Spring Boot 3.2 Reactive WebFlux (Accounts)
 
-Usage:
+#### Usage:
 - IntentelliJ IDEA 2023.2
 - Java 17+
 - Liquibase Database Migrations
 - PostgreSQL
+- Design de desenvolvimento em Camadas: Controller, Service e repository
 
+#### Localizacao no projeto WebFlux
+
+> Routes: api.http.resources.AccountResource.class
+
+> Handler/Controller: handlers.AccountHandler.class
+
+> Service: services.impl.AccountServiceImpl.class
+
+Exemplo:
+
+![Resource/Controller](./images/resource.png)
+
+## AWS
+- [AWS ADOT Collector](https://aws-otel.github.io/docs/introduction)
 
 ## WebFlux
 - [Function Handler Validation](https://docs.spring.io/spring-framework/reference/web/webflux-functional.html#webflux-fn-handler-validation)
