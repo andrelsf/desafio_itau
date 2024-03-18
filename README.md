@@ -50,7 +50,71 @@ curl -i -X POST -H 'Content-Type: application/json' http://localhost:2525/impost
 
 > Com os containers executando e projeto Spring sendo executado segue as requests:
 
-Requests
+### Requests
+
+### cURL
+
+```shell
+# GET Balance Alice
+curl --request GET \
+  --url http://localhost:8090/api/v1/accounts/0ab4165471c445918697d3d620b0db2a/balance \
+  --header 'Content-Type: application/json' \
+  --header 'User-Agent: insomnia/8.6.1'
+
+# GET Balance Bob
+curl --request GET \
+  --url http://localhost:8090/api/v1/accounts/0ab4165471c445918697d3d620b0db2b/balance \
+  --header 'Content-Type: application/json' \
+  --header 'User-Agent: insomnia/8.6.1'
+
+# POST Transfer Bob to Alice
+curl --request POST \
+  --url http://localhost:8090/api/v1/accounts/0ab4165471c445918697d3d620b0db2b/transfers \
+  --header 'Content-Type: application/json' \
+  --header 'User-Agent: insomnia/8.6.1' \
+  --data '{
+  "toAccount": {
+    "fullName": "Alice",
+    "agency": 4321,
+    "accountNumber": 856087
+  },
+  "amount": 100.00
+}'
+
+# POST Transfer Alice to Bob
+curl --request POST \
+  --url http://localhost:8090/api/v1/accounts/0ab4165471c445918697d3d620b0db2b/transfers \
+  --header 'Content-Type: application/json' \
+  --header 'User-Agent: insomnia/8.6.1' \
+  --data '{
+  "toAccount": {
+    "fullName": "Bob",
+    "agency": 1234,
+    "accountNumber": 1230019
+  },
+  "amount": 100.00
+}'
+
+# Update Transfer Limit BOB
+curl --request PATCH \
+  --url http://localhost:8090/api/v1/accounts/0ab4165471c445918697d3d620b0db2b/transfer-limits \
+  --header 'Content-Type: application/json' \
+  --header 'User-Agent: insomnia/8.6.1' \
+  --data '{
+  "amount": 1000.00
+}'
+
+# Update Transfer Limit Alice
+curl --request PATCH \
+  --url http://localhost:8090/api/v1/accounts/0ab4165471c445918697d3d620b0db2a/transfer-limits \
+  --header 'Content-Type: application/json' \
+  --header 'User-Agent: insomnia/8.6.1' \
+  --data '{
+  "amount": 1000.00
+}'
+```
+
+
 ```shell
 # Httpie
 # GET Balance BOB
