@@ -48,6 +48,24 @@ http --json POST :2525/imposters < mocks/imposters/accountsAndBacenStubs.json
 curl -i -X POST -H 'Content-Type: application/json' http://localhost:2525/imposters -d @mocks/imposters/accountsAndBacenStubs.json
 ```
 
+> Com os containers executando e projeto Spring sendo executado segue as requests:
+
+Requests
+```shell
+# Httpie
+# GET Balance BOB
+http --json GET :8090/api/v1/accounts/0ab4165471c445918697d3d620b0db2b/balance
+
+# GET Balance Alice
+http --json GET :8090/api/v1/accounts/0ab4165471c445918697d3d620b0db2a/balance
+
+# Transferencia de Bob para Alice
+http --json POST :8090/api/v1/accounts/0ab4165471c445918697d3d620b0db2b/transfers < mc-accounts/requestPayloads/transferFromBobToAlice.json
+
+# Atualizar Limite diario da Alice p
+http --json PATCH :8090/api/v1/accounts/0ab4165471c445918697d3d620b0db2a/transfer-limits < mc-accounts/requestPayloads/updateTransferLimit.json
+```
+
 ### Spring Boot 3.2 Reactive WebFlux (Accounts)
 
 #### Usage:
